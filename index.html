@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Daily Learning App</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+    padding-bottom: 80px;
+}
+
+header {
+    background: linear-gradient(135deg, #5b5bf7, #8b5cf6);
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+header p {
+    font-size: 15px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    background: white;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+nav button {
+    background: #eef0ff;
+    color: #333;
+    border: none;
+    padding: 10px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #5b5bf7;
+    color: white;
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.card,
+.word {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h3,
+.word h3 {
+    margin-bottom: 10px;
+}
+
+.card p,
+.word p {
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.action-btn {
+    background: #5b5bf7;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.action-btn:hover {
+    opacity: 0.85;
+}
+
+.progress {
+    width: 100%;
+    height: 18px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: #5b5bf7;
+    transition: 0.4s;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin: 8px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #eef0ff;
+    cursor: pointer;
+}
+
+.quiz-option:hover {
+    background: #dfe2ff;
+}
+
+#quizResult {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    nav button {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    main {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Daily Learning</h1>
+    <p>Learn Something New Every Day!</p>
+</header>
+
+<nav>
+    <button onclick="showPage('home')">🏠 Home</button>
+    <button onclick="showPage('lessons')">📚 Lessons</button>
+    <button onclick="showPage('quiz')">🧠 Quiz</button>
+    <button onclick="showPage('words')">📝 Words</button>
+    <button onclick="showPage('profile')">👤 Profile</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+    <h2>Welcome! 👋</h2>
+
+    <div class="card">
+        <h3>🎯 Today's Goal</h3>
+        <p>Learn 5 new English words today.</p>
+
+        <button class="action-btn"
+                onclick="showPage('words')">
+            Start Learning
+        </button>
+    </div>
+
+    <div class="card">
+
+        <h3>📈 Your Progress</h3>
+
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+
+        <p id="progressText">
+            0% completed
+        </p>
+
+    </div>
+
+    <div class="card">
+        <h3>🔥 Learning Streak</h3>
+        <p>Keep learning every day!</p>
+        <h2 id="streak">1 Day</h2>
+    </div>
+
+</section>
+
+
+<!-- LESSONS -->
+<section id="lessons" class="page">
+
+    <h2>📚 Daily Lessons</h2>
+
+    <div class="card">
+        <h3>🗣️ English Speaking</h3>
+        <p>
+            Learn simple English sentences
+            for daily conversations.
+        </p>
+
+        <button class="action-btn"
+                onclick="completeLesson()">
+            Complete Lesson
+        </button>
+    </div>
+
+    <div class="card">
+
+        <h3>💰 Finance Basics</h3>
+
+        <p>
+            Learn basic concepts of finance,
+            investment and money management.
+        </p>
+
+        <button class="action-btn"
+                onclick="completeLesson()">
+            Complete Lesson
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h3>💼 Career Skills</h3>
+
+        <p>
+            Improve communication,
+            interview and professional skills.
+        </p>
+
+        <button class="action-btn"
+                onclick="completeLesson()">
+            Complete Lesson
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- QUIZ -->
+<section id="quiz" class="page">
+
+    <h2>🧠 Daily Quiz</h2>
+
+    <div class="card">
+
+        <h3>
+            What does "Confident" mean?
+        </h3>
+
+        <button class="quiz-option"
+                onclick="checkAnswer(false)">
+            A. Afraid
+        </button>
+
+        <button class="quiz-option"
+                onclick="checkAnswer(true)">
+            B. Sure about yourself
+        </button>
+
+        <button class="quiz-option"
+                onclick="checkAnswer(false)">
+            C. Confused
+        </button>
+
+        <p id="quizResult"></p>
+
+    </div>
+
+</section>
+
+
+<!-- WORDS -->
+<section id="words" class="page">
+
+    <h2>📝 Today's 5 Words</h2>
+
+    <div class="word">
+        <h3>1. Confident</h3>
+        <p><b>Meaning:</b> Feeling sure about yourself.</p>
+        <p><b>Example:</b> I am confident about my presentation.</p>
+    </div>
+
+    <div class="word">
+        <h3>2. Improve</h3>
+        <p><b>Meaning:</b> To become better.</p>
+        <p><b>Example:</b> I want to improve my English.</p>
+    </div>
+
+    <div class="word">
+        <h3>3. Career</h3>
+        <p><b>Meaning:</b> Your professional journey.</p>
+        <p><b>Example:</b> I want a successful career.</p>
+    </div>
+
+    <div class="word">
+        <h3>4. Invest</h3>
+        <p><b>Meaning:</b> Put money into something for future benefit.</p>
+        <p><b>Example:</b> I want to invest my money wisely.</p>
+    </div>
+
+    <div class="word">
+        <h3>5. Opportunity</h3>
+        <p><b>Meaning:</b> A good chance to do something.</p>
+        <p><b>Example:</b> This job is a great opportunity.</p>
+    </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+    <h2>👤 My Profile</h2>
+
+    <div class="card">
+
+        <h3>Student</h3>
+
+        <p>🎯 Goal: Learn every day</p>
+
+        <p>🔥 Learning streak:
+            <span id="profileStreak">1 day</span>
+        </p>
+
+        <p>
+            📚 Lessons completed:
+            <span id="lessonsCompleted">0</span>
+        </p>
+
+        <p>
+            🧠 Quiz Score:
+            <span id="quizScore">0</span>
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    <p>© 2026 Daily Learning App</p>
+</footer>
+
+
+<script>
+
+let progress = 0;
+let lessons = 0;
+let score = 0;
+
+
+/* PAGE NAVIGATION */
+
+function showPage(pageName) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+    document
+        .getElementById(pageName)
+        .classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* COMPLETE LESSON */
+
+function completeLesson() {
+
+    if (progress < 100) {
+
+        progress += 20;
+
+    }
+
+    lessons++;
+
+    if (progress > 100) {
+
+        progress = 100;
+
+    }
+
+    document
+        .getElementById("progressBar")
+        .style.width = progress + "%";
+
+    document
+        .getElementById("progressText")
+        .innerText =
+        progress + "% completed";
+
+    document
+        .getElementById("lessonsCompleted")
+        .innerText = lessons;
+
+    alert("🎉 Lesson completed!");
+
+}
+
+
+/* QUIZ */
+
+function checkAnswer(correct) {
+
+    const result =
+        document.getElementById("quizResult");
+
+    if (correct) {
+
+        result.innerText =
+            "✅ Correct! Great job!";
+
+        score++;
+
+        document
+            .getElementById("quizScore")
+            .innerText = score;
+
+    } else {
+
+        result.innerText =
+            "❌ Wrong answer. Try again!";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html
